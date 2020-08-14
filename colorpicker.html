@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>colorpickers</title>
+	<meta charset="utf-8">
+</head>
+<style type="text/css">
+	:root {
+		--primary-bg-color: #fff;
+		--primary-color: #000;
+	}
+	body {
+		margin: 0;
+		padding: 0;
+	}
+	.container {
+		position: relative;
+		width: 100%;
+		height: 93vh;
+	}
+	.colorpicker {
+		position: absolute;
+		width: 100%;
+		height: 90px;
+		top: 0;
+		left: 0;
+		z-index: 9;
+		background-color: #fff;
+	}
+	.main-content {
+		width: 100%;
+		height: 100%;
+		padding-top: 50px;
+		position: relative;
+		background-color: var(--primary-bg-color);
+	}
+	.main-content .title {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		color: var(--primary-color);
+		font-size: 50px;
+		transform: translate(-50%,-50%);
+		font-weight: bold;
+	}
+</style>
+<body>
+	<div class="container">
+		<div class="colorpicker">
+			<label for="favcolor">Select your favorite color:</label>
+			<div class="form-group">
+				<span>Background color</span>
+				<input class="input-color-picker" type="color" data-id="bg-color" name="Background">
+			</div>
+			<div class="form-group">
+				<span>Text color</span>
+				<input class="input-color-picker" type="color" data-id="color" name="Color">
+			</div>
+		</div>
+		<div class="main-content">
+			<div class="title">Hello World</div>
+		</div>
+	</div>
+
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+  // Color Picker Tool Js
+  
+  const dynamicInputs = document.querySelectorAll('input.input-color-picker');
+  
+  const handleThemeUpdate = (cssVars) => {
+    const root = document.querySelector(':root');
+    const keys = Object.keys(cssVars);
+    keys.forEach(key => {
+      root.style.setProperty(key, cssVars[key]);
+    });
+  }
+  
+  dynamicInputs.forEach((item) => {
+    item.addEventListener('input', (e) => {
+      const cssPropName = `--primary-${e.target.getAttribute('data-id')}`;
+      console.log(cssPropName)
+      handleThemeUpdate({
+        [cssPropName]: e.target.value
+      });
+    });
+  });
+  
+});
+	</script>
+</body>
+</html>
